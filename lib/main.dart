@@ -1,7 +1,8 @@
-import 'package:book_app/controllers/book_controllers.dart';
-import 'package:book_app/views/book_list_page.dart';
+import 'package:book/controllers/book.controller.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import './splash_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,12 +17,14 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => BookController(),
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Book App Anyeong',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primarySwatch: Colors.pink,
         ),
-        home: const BookListPage(),
+        home: SplashScreen(),
+        // const BookListPage(),
       ),
     );
   }
 }
+

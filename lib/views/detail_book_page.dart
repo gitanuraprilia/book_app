@@ -1,17 +1,11 @@
-
-
-import 'package:book_app/controllers/book_controllers.dart';
-import 'package:book_app/views/image_view_screen.dart';
+import 'package:book/controllers/book.controller.dart';
+import 'package:book/views/image_view_screen.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DetailBookPage extends StatefulWidget {
-  const DetailBookPage({
-    Key? key,
-    required this.isbn,
-  }) : super(key: key);
+  const DetailBookPage({Key? key, required this.isbn}) : super(key: key);
   final String isbn;
   @override
   State<DetailBookPage> createState() => _DetailBookPageState();
@@ -21,7 +15,7 @@ class _DetailBookPageState extends State<DetailBookPage> {
   BookController? controller;
   @override
   void initState() {
-    
+    // TODO: implement initState
     super.initState();
     controller = Provider.of<BookController>(context, listen: false);
     controller!.fetchDetailBookApi(widget.isbn);
@@ -31,7 +25,7 @@ class _DetailBookPageState extends State<DetailBookPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title:const Text("Detail"),
+        title: const Text("Detail"),
       ),
       body: Consumer<BookController>(builder: (context, controller, child) {
         return controller.detailBook == null
@@ -49,7 +43,8 @@ class _DetailBookPageState extends State<DetailBookPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => ImageViewScreen(
-                                    imageUrl: controller.detailBook!.image!),
+                                  imageUrl: controller.detailBook!.image!,
+                                ),
                               ),
                             );
                           },
@@ -60,22 +55,23 @@ class _DetailBookPageState extends State<DetailBookPage> {
                         ),
                         Expanded(
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 12.0),
+                            padding: const EdgeInsets.only(bottom: 9.0),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   controller.detailBook!.title!,
-                                  style:const TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
                                   controller.detailBook!.authors!,
-                                  style:const TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
-                                    color: Colors.grey,
+                                    color: Colors.black,
+                                    //fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 const SizedBox(height: 10),
@@ -94,18 +90,18 @@ class _DetailBookPageState extends State<DetailBookPage> {
                                 ),
                                 Text(
                                   controller.detailBook!.subtitle!,
-                                  style:const TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 12,
-                                    fontWeight: FontWeight.bold,
                                     color: Colors.grey,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                                 Text(
                                   controller.detailBook!.price!,
-                                  style:const TextStyle(
-                                    fontWeight: FontWeight.bold,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     color: Colors.green,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ],
@@ -114,78 +110,73 @@ class _DetailBookPageState extends State<DetailBookPage> {
                         )
                       ],
                     ),
-                  const  SizedBox(height: 20),
-                    SizedBox(
+                    const Divider(),
+                    const SizedBox(height: 20),
+                    Container(
                       width: double.infinity,
                       child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                              // fixedSize: Size(double.infinity, 50),
+                              //fixedSize: Size(double.infinity, 50)
                               ),
                           onPressed: () async {
-                            
                             Uri uri = Uri.parse(controller.detailBook!.url!);
                             try {
                               (await canLaunchUrl(uri))
                                   ? launchUrl(uri)
-                                  : debugPrint("tidak berhasil navigasi");
+                                  : ("tidak berhasil navigasi");
                             } catch (e) {
-                              debugPrint("error");
-                              
+                              (e);
                             }
                           },
-                          child:const Text("BUY")),
+                          child: const Text("BUY")),
                     ),
-                  const  SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Text(controller.detailBook!.desc!),
-                  const  SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Year: " + controller.detailBook!.year!),
                         Text("ISBN " + controller.detailBook!.isbn13!),
                         Text(controller.detailBook!.pages! + " Page"),
-                        Text(
-                            "Publisher: " + controller.detailBook!.publisher!),
                         Text("Language: " + controller.detailBook!.language!),
-
-                        // Text(detailBook!.rating!),
+                        Text("Publisher: " + controller.detailBook!.publisher!),
+                        Text("Year: " + controller.detailBook!.year!),
                       ],
                     ),
-                 const   Divider(),
+                    const Divider(),
                     controller.similiarBooks == null
-                        ?const CircularProgressIndicator()
-                        : SizedBox(
-                            height: 180,
-                            child: ListView.builder(
-                              // shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount:
-                                  controller.similiarBooks!.books!.length,
-                              // physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, index) {
-                                final current =
-                                    controller.similiarBooks!.books![index];
-                                return SizedBox(
-                                  width: 100,
-                                  child: Column(
-                                    children: [
-                                      Image.network(
-                                        current.image!,
-                                        height: 100,
-                                      ),
-                                      Text(
-                                        current.title!,
-                                        maxLines: 3,
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        style:const TextStyle(
-                                          fontSize: 12,
+                        ? const CircularProgressIndicator()
+                        : Expanded(
+                            child: Container(
+                              height: 180,
+                              child: ListView.builder(
+                                  // shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount:
+                                      controller.similiarBooks!.books!.length,
+                                  //physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (context, index) {
+                                    final current =
+                                        controller.similiarBooks!.books![index];
+                                    return Container(
+                                      width: 100,
+                                      child: Column(children: [
+                                        Image.network(
+                                          current.image!,
+                                          height: 100,
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              },
+                                        Text(
+                                          current.title!,
+                                          maxLines: 2,
+                                          textAlign: TextAlign.center,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                            fontSize: 12,
+                                          ),
+                                        )
+                                      ]),
+                                    );
+                                  }),
                             ),
                           )
                   ],
