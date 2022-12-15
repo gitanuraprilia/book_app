@@ -1,5 +1,5 @@
-import 'package:book/controllers/book.controller.dart';
-import 'package:book/views/image_view_screen.dart';
+import 'package:book_app/controllers/book_controller.dart';
+import 'package:book_app/views/image_view_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';

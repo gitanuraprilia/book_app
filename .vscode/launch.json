@@ -5,19 +5,19 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "book",
+            "name": "book_app",
             "request": "launch",
          //"deviceId": "chrome",
             "type": "dart"
         },
         {
-            "name": "book (profile mode)",
+            "name": "book_app (profile mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "profile"
         },
         {
-            "name": "book (release mode)",
+            "name": "book_app (release mode)",
             "request": "launch",
             "type": "dart",
             "flutterMode": "release"

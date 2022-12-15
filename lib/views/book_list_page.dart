@@ -1,6 +1,6 @@
 
-import 'package:book/controllers/book.controller.dart';
-import 'package:book/views/detail_book_page.dart';
+import 'package:book_app/controllers/book_controller.dart';
+import 'package:book_app/views/detail_book_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
