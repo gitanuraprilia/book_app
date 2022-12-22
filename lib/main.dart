@@ -1,8 +1,8 @@
 import 'package:book_app/controllers/book_controller.dart';
-
+import 'package:book_app/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import './splash_screen.dart';
+
 
 void main() {
   runApp(const MyApp());

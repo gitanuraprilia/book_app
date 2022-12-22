@@ -1,4 +1,3 @@
-
 import 'package:book_app/controllers/book_controller.dart';
 import 'package:book_app/views/detail_book_page.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +12,6 @@ class BookListPage extends StatefulWidget {
 
 class _BookListPageState extends State<BookListPage> {
  BookController? bookController;
- bool isSearching = false;
 
 @override
   void initState() {

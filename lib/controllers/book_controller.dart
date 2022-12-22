@@ -1,13 +1,10 @@
-
 import 'dart:convert';
-
 import 'package:book_app/models/book_list_response.dart';
 import 'package:book_app/models/book_detail_response.dart';
-
 import 'package:flutter/material.dart';
-
-
 import 'package:http/http.dart' as http;
+
+
 class BookController extends ChangeNotifier {
    BookListResponse? bookList;
   fetchBookApi() async {
